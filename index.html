@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Lost & Found Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+    <img class="isu-logo" src="https://isu.edu.ph/wp-content/uploads/2026/03/isu_new_seal_269x269.png" alt="Official Isabela State University seal">
+    <div class="header-copy">
+        <span class="university-name">ISABELA STATE UNIVERSITY</span>
+        <h1>Campus Lost &amp; Found</h1>
+        <p>Helping campus belongings find their way home</p>
+    </div>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <div>
+            <span class="eyebrow">CAMPUS SERVICES</span>
+            <h2>Lost something? Found something?</h2>
+            <p>Report belongings, search item records, and keep track of claims.</p>
+        </div>
+        <div class="hero-symbol" aria-hidden="true">⌕</div>
+    </section>
+
+    <section class="stats" aria-label="Summary">
+        <button class="stat" type="button" data-history="reports" aria-label="View recent report history">
+            <span>Total reports</span><strong id="totalCount">0</strong><small>View recent history ↗</small>
+        </button>
+        <button class="stat" type="button" data-history="unclaimed" aria-label="View recent unclaimed item history">
+            <span>Unclaimed items</span><strong id="unclaimedCount">0</strong><small>View recent history ↗</small>
+        </button>
+        <button class="stat" type="button" data-history="inquiries" aria-label="View recent inquiry history">
+            <span>Waiting inquiries</span><strong id="inquiryCount">0</strong><small>View recent history ↗</small>
+        </button>
+    </section>
+
+    <section id="historyPanel" class="panel history-panel hidden" aria-live="polite" aria-labelledby="historyTitle">
+        <div class="section-heading history-heading">
+            <div><span class="eyebrow">RECENT ACTIVITY</span><h2 id="historyTitle">Recent history</h2><p id="historyDescription" class="muted">Latest activity appears first.</p></div>
+            <button id="closeHistoryButton" class="button light" type="button">Close history</button>
+        </div>
+        <div id="historyList" class="history-list"></div>
+    </section>
+
+    <div id="message" class="message hidden" role="status"></div>
+
+    <section class="panel">
+        <div class="section-heading">
+            <div><span class="eyebrow">ITEM REPORTS</span><h2>Browse lost and found items</h2></div>
+            <button id="toggleFormButton" class="button primary">+ Report an item</button>
+        </div>
+
+        <form id="itemForm" class="form-card hidden">
+            <h3>New item report</h3>
+            <div class="form-grid">
+                <label>Report type
+                    <select id="type" required>
+                        <option value="Lost">Lost item</option>
+                        <option value="Found">Found item</option>
+                    </select>
+                </label>
+                <label>Item name
+                    <input id="name" required maxlength="80" placeholder="e.g. Student ID">
+                </label>
+                <label>Category
+                    <input id="category" required maxlength="60" placeholder="e.g. Identification">
+                </label>
+                <label>Date
+                    <input id="date" type="date" required>
+                </label>
+                <label>Location
+                    <input id="location" required maxlength="100" placeholder="Where was it lost or found?">
+                </label>
+                <label class="wide">Description
+                    <input id="description" required maxlength="250" placeholder="Color, brand, or identifying details">
+                </label>
+                <label class="wide">Item photo (optional)
+                    <input id="itemImage" type="file" accept="image/*">
+                    <span class="help-text">Choose a photo from your device. Large images are resized to help save browser storage.</span>
+                </label>
+                <div id="imagePreviewWrap" class="image-preview-wrap wide hidden">
+                    <img id="imagePreview" alt="Preview of selected item photo">
+                    <button type="button" id="removeImageButton" class="button light">Remove photo</button>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="cancelFormButton" class="button light">Cancel</button>
+                <button type="submit" class="button primary">Save report</button>
+            </div>
+        </form>
+
+        <div class="filters">
+            <label class="search-field"><span aria-hidden="true">⌕</span>
+                <input id="searchInput" type="search" placeholder="Search name, category, description, location...">
+            </label>
+            <label class="sort-field">Sort by
+                <select id="sortSelect">
+                    <option value="">Added order</option>
+                    <option value="date">Date (oldest first)</option>
+                    <option value="category">Category (A–Z)</option>
+                    <option value="name">Name (A–Z)</option>
+                </select>
+            </label>
+        </div>
+
+        <div id="itemList" class="item-grid"></div>
+        <p id="emptyState" class="empty-state hidden">No items match your search.</p>
+    </section>
+
+    <section class="panel">
+        <div class="section-heading">
+            <div><span class="eyebrow">FIFO QUEUE</span><h2>Student inquiries</h2>
+                <p class="muted">Inquiries are processed in the order they arrive.</p>
+            </div>
+        </div>
+        <form id="inquiryForm" class="inquiry-form">
+            <label>Student name
+                <input id="studentName" required maxlength="80" placeholder="Your name">
+            </label>
+            <label>Inquiry details
+                <input id="inquiryDetails" required maxlength="250" placeholder="Ask about an item or claim">
+            </label>
+            <button class="button primary" type="submit">Add inquiry</button>
+        </form>
+        <div id="inquiryList" class="inquiry-list"></div>
+        <div class="queue-actions">
+            <button id="processInquiryButton" class="button dark">Process next inquiry</button>
+        </div>
+    </section>
+
+    <footer>Campus Lost & Found Tracker · Beginner DSA project</footer>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
